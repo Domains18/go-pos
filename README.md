@@ -1,2 +1,4 @@
 # readme
- - This is a golang serverless api using
+ - This is a golang serverless api using AWS
+
+ 
