@@ -8,5 +8,13 @@ provider:
 
 functions:
   api:
-    handler: xxx
-    events: xxx
+    handler: bin/main
+    events:
+      - http:
+          path: /ping
+          method: get
+          cors: true
+package: 
+  patterns:
+    - '!**'
+    - bin/main
