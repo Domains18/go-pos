@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cd9e269-679a-4878-9624-bf73a341cfa9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/core/port/auth.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/core/port/cache.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/core/port/category.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/core/port/error.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/core/port/order.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/core/port/payment.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/core/port/product.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/core/port/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/core/domain/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/domain/category.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/core/domain/orderProduct.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/domain/orderProduct.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/core/domain/payment.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/domain/payment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/core/domain/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/domain/product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/core/port/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/port/category.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/core/port/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/port/error.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/core/port/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/port/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/core/port/payment.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/port/payment.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
