@@ -7,8 +7,8 @@ app:
 	@./notiwa
 
 serve:
-	@templ generate --watch
-	@air
+	@templ generate
+	@go run main.go
 
 container:
 	@docker compose up

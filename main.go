@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"github.com/Nerds-Catapult/notiwa/internal/server"
+)
 
 func main() {
-	fmt.Println("Notiwa app")
+	router := server.SetupRouter()
+	router.Run(":8080")
 }
