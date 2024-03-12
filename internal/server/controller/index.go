@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"github.com/a-h/templ"
 	"github.com/gin-gonic/gin"
 )
 
-func HomeRoute(c *gin.Context, component templ.Component) error {
-	c.Status(200)
-	return component.Render(c.Request.Context(), c.Writer)
+// TODO: configure to return templ files and hydated HTML file instead of JSON responses
+func HomeRoute(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"hello": "world",
+	})
 }
