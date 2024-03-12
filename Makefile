@@ -6,7 +6,8 @@ app:
 	@go build main
 	@./notiwa
 
-server:
+serve:
+	@templ generate --watch
 	@air
 
 container:
