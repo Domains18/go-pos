@@ -13,6 +13,9 @@ RUN wget -O - https://github.com/golang-migrate/migrate/releases/download/v4.16.
 # install dependencies
 RUN go mod download
 
+# this is for generating templ go files for the views
+RUN templ generate
+
 # build binary
 RUN go build -o ./bin/gopos ./cmd/http/main.go
 
