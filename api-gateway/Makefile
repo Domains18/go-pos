@@ -8,3 +8,5 @@ app:
 
 container:
 	@docker compose up
+
+

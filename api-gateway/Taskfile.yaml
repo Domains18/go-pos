@@ -111,3 +111,14 @@ tasks:
   # test:
   #   desc: "Run tests"
   #   cmd: ginkgo -v -r --cover --race --keep-going --timeout=30s
+
+  gin-types:
+    cmds:
+      - oapi-codegen --package=dto --generate types ./docs/notiwa.yaml > internal/dto/http.gen.go
+
+    silent: false
+
+  gin-handlers:
+    cmds:
+      - oapi-codegen --package=handlers --generate gin ./docs/notiwa.yaml > internal/routes/handlers/handler.gen.go
+    silent: false
