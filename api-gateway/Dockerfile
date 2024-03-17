@@ -5,7 +5,7 @@ FROM golang:1.21-alpine3.18 AS build
 WORKDIR /app
 
 # copy source code
-COPY . .
+COPY .. .
 
 # install golang-migrate
 RUN wget -O - https://github.com/golang-migrate/migrate/releases/download/v4.16.2/migrate.linux-amd64.tar.gz | tar xvz

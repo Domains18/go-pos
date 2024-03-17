@@ -122,3 +122,12 @@ tasks:
     cmds:
       - oapi-codegen --package=handlers --generate gin ./docs/notiwa.yaml > internal/routes/handlers/handler.gen.go
     silent: false
+
+  gin-interfaces:
+    cmds:
+      - oapi-codegen --package=handlers --generate types,client ./docs/notiwa.yaml > internal/routes/handlers/generated_interfaces.go
+
+    silent: false
+
+
+
