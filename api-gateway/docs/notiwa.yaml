@@ -1,0 +1,297 @@
+openapi: 3.0.0
+info:
+  title: Notiwa POS API
+  version: 1.0.0
+  description: API for managing customers, products, and sales in a point of sale system (POS).
+servers:
+  - url: http://notiwapos.test/api/v1
+paths:
+  /login:
+    post:
+      summary: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Forbidden operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+  /customers:
+    post:
+      summary: Create New Customer
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: Customer created successfully
+        '401':
+          description: Forbidden operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '409':
+          description: Customer with the provided ID already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+    get:
+      summary: Get All Customers
+      security:
+        - BearerToken: []
+      parameters:
+        - name: search
+          in: query
+          description: Search for customers with mobile number or ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerPaginator'
+        '403':
+          description: Forbidden operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+
+  /products:
+    get:
+      summary: Get Products
+      security:
+        - BearerToken: []
+      parameters:
+        - name: group
+          in: query
+          description: Fetch only products of that category
+          schema:
+            type: number
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductPaginator'
+        '403':
+          description: Forbidden operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+  /sales-invoices:
+    post:
+      summary: Create New Sales Invoice
+      security:
+        - BearerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesInvoice'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesInvoice'
+        '403':
+          description: Forbidden operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          type: string
+        expire:
+          type: integer
+          description: Timestamp when token expires
+        display_name:
+          type: string
+    Customer:
+      type: object
+      properties:
+        name:
+          type: string
+        mobile_no:
+          type: string
+        email:
+          type: string
+          nullable: true
+        ID:
+          type: string
+    Product:
+      type: object
+      properties:
+        sku:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        tax_rate:
+          type: number
+        taxed_price:
+          type: number
+        image:
+          type: string
+        product_category:
+          $ref: '#/components/schemas/ProductGroup'
+        sale_price:
+          type: number
+        taxed_sale_price:
+          type: number
+        quantity:
+          type: number
+        available:
+          type: boolean
+    ProductGroup:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        parent:
+          type: number
+        is_group:
+          type: boolean
+        disabled:
+          type: boolean
+    SalesInvoiceItem:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        quantity:
+          type: number
+        selling_price:
+          type: number
+        taxed_selling_price:
+          type: number
+    SalesInvoice:
+      type: object
+      properties:
+        client_id:
+          type: number
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesInvoiceItem'
+        customer:
+          $ref: '#/components/schemas/Customer'
+    PaginationLinks:
+      type: object
+      properties:
+        first:
+          type: string
+        last:
+          type: string
+        prev:
+          type: string
+          nullable: true
+        next:
+          type: string
+          nullable: true
+    PaginationMeta:
+      type: object
+      properties:
+        current_page:
+          type: number
+        from:
+          type: number
+        last_page:
+          type: number
+        path:
+          type: string
+        per_page:
+          type: number
+        to:
+          type: number
+        total:
+          type: number
+    Message:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    ProductPaginator:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    CustomerPaginator:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
