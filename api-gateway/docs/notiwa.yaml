@@ -1,13 +1,33 @@
 openapi: 3.0.0
 info:
-  title: Notiwa POS  API
-  version: 2.0.0
-  description: API for managing customers, products, and sales in a point of sale system(POS).
-
+  title: Notiwa POS API
+  version: 1.0.0
+  description: API for managing customers, products, and sales in a point of sale system (POS).
 servers:
   - url: http://notiwapos.test/api/v1
-
 paths:
+  /login:
+    post:
+      summary: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Forbidden operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
   /customers:
     post:
       summary: Create New Customer
@@ -34,7 +54,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-
     get:
       summary: Get All Customers
       security:
@@ -53,29 +72,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomerPaginator'
         '403':
-          description: Forbidden operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Message'
-
-  /login:
-    post:
-      summary: User Login
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Token'
-        '401':
           description: Forbidden operation
           content:
             application/json:
@@ -111,7 +107,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-
   /sales-invoices:
     post:
       summary: Create New Sales Invoice
@@ -148,7 +143,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-
 components:
   schemas:
     User:
@@ -158,7 +152,6 @@ components:
           type: string
         password:
           type: string
-
     Token:
       type: object
       properties:
@@ -171,7 +164,6 @@ components:
           description: Timestamp when token expires
         display_name:
           type: string
-
     Customer:
       type: object
       properties:
@@ -184,7 +176,6 @@ components:
           nullable: true
         ID:
           type: string
-
     Product:
       type: object
       properties:
@@ -210,7 +201,6 @@ components:
           type: number
         available:
           type: boolean
-
     ProductGroup:
       type: object
       properties:
@@ -224,7 +214,6 @@ components:
           type: boolean
         disabled:
           type: boolean
-
     SalesInvoiceItem:
       type: object
       properties:
@@ -236,7 +225,6 @@ components:
           type: number
         taxed_selling_price:
           type: number
-
     SalesInvoice:
       type: object
       properties:
@@ -248,7 +236,6 @@ components:
             $ref: '#/components/schemas/SalesInvoiceItem'
         customer:
           $ref: '#/components/schemas/Customer'
-
     PaginationLinks:
       type: object
       properties:
@@ -262,7 +249,6 @@ components:
         next:
           type: string
           nullable: true
-
     PaginationMeta:
       type: object
       properties:
@@ -280,7 +266,6 @@ components:
           type: number
         total:
           type: number
-
     Message:
       type: object
       properties:
@@ -288,7 +273,6 @@ components:
           type: string
         message:
           type: string
-
     ProductPaginator:
       type: object
       properties:
@@ -300,7 +284,6 @@ components:
           $ref: '#/components/schemas/PaginationLinks'
         meta:
           $ref: '#/components/schemas/PaginationMeta'
-
     CustomerPaginator:
       type: object
       properties:
