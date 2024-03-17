@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/Nerds-Catapult/notiwa/internal/core/adapters"
-	"github.com/Nerds-Catapult/notiwa/internal/dto"
+	"github.com/Nerds-Catapult/notiwa/api-gateway/internal/core/adapters"
+	"github.com/Nerds-Catapult/notiwa/api-gateway/internal/dto"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -19,7 +19,9 @@ func (h *Handler) Login(c *gin.Context) {
 		return
 	}
 
-	token, err := h.AuthRepo.Login(creds.Username, creds.Password)
+	ctx := c.Request.Context()
+
+	token, err := h.AuthRepo.Login(ctx, creds.Username, creds.Password)
 	if err != nil {
 		c.JSON(http.StatusForbidden, gin.H{"error": "Invalid username or password"})
 		return
