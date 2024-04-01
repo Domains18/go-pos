@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/Nerds-Catapult/notiwa/api-gateway/cmd"
+)
 
 func main() {
-	fmt.Println("Notiwa app")
+	cmd.Execute()
 }
