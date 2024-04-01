@@ -2,6 +2,8 @@ package postgres
 
 import (
 	"fmt"
+	"github.com/Nerds-Catapult/notiwa/api-gateway/pkg/db"
+	"log"
 	"os"
 
 	"github.com/jmoiron/sqlx"
@@ -29,19 +31,12 @@ func InitDB() {
 	DB.SetMaxOpenConns(10)
 	DB.SetMaxIdleConns(4)
 
-	CreateTables()
+	if err = db.CreateTables(); err != nil {
+		log.Fatal("errr creating table schema v", err)
+	}
+
 }
 
-func CreateTables() {
-	createUserTable := `
-	CREATE TABLE IF NOT EXISTS users (
-		email VARCHAR(255) UNIQUE NOT NULL,
-		user_id UUID PRIMARY KEY
-	);
-	`
-
-	_, err := DB.Exec(createUserTable)
-	if err != nil {
-		panic(fmt.Sprintf("Could not create the users table: %v", err))
-	}
+func Disconnect() error {
+	return DB.Close()
 }
