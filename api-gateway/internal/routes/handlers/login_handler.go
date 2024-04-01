@@ -3,36 +3,42 @@ package handlers
 import (
 	"github.com/Nerds-Catapult/notiwa/api-gateway/internal/core/adapters"
 	"github.com/Nerds-Catapult/notiwa/api-gateway/internal/dto"
-	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-type Handler struct {
+type AuthHandler struct {
 	AuthRepo adapters.AuthRepo
 }
 
+func (h *AuthHandler) CreateCustomers(ctx context.Context, body dto.PostCustomersJSONRequestBody) (*http.Response, error) {
+	//TODO implement me
+	panic("implement me")
+}
 
-func (h *Handler) Login(c *gin.Context) {
-	var creds dto.Credentials
-	if err := c.ShouldBindJSON(&creds); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
-		return
-	}
+func (h *AuthHandler) GetCustomers(ctx context.Context, params *dto.GetCustomersParams) (*http.Response, error) {
+	//TODO implement me
+	panic("implement me")
+}
 
-	ctx := c.Request.Context()
+func (h *AuthHandler) LoginCustomer(ctx context.Context, body dto.PostLoginJSONRequestBody) (*http.Response, error) {
+	//TODO implement me
+	panic("implement me")
+}
 
-	token, err := h.AuthRepo.Login(ctx, creds.Username, creds.Password)
-	if err != nil {
-		c.JSON(http.StatusForbidden, gin.H{"error": "Invalid username or password"})
-		return
-	}
+func (h *AuthHandler) GetProducts(ctx context.Context, params *dto.GetProductsParams) (*http.Response, error) {
+	//TODO implement me
+	panic("implement me")
+}
 
-	c.JSON(http.StatusOK, token)
+func (h *AuthHandler) CreateSalesInvoices(ctx context.Context, body dto.PostSalesInvoicesJSONRequestBody) (*http.Response, error) {
+	//TODO implement me
+	panic("implement me")
 }
 
 
-func NewHandler(authRepo adapters.AuthRepo) *Handler {
-	return &Handler{
+
+func NewAuthHandler(authRepo adapters.AuthRepo) *AuthHandler {
+	return &AuthHandler{
 		AuthRepo: authRepo,
 	}
 }
