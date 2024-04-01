@@ -1,7 +1,6 @@
 package server
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 )
 
@@ -9,11 +8,6 @@ type MyServer struct {
 	Logger *log.Logger
 }
 
-
-func (s *MyServer)GetCustomers(ctx *gin.Context){
-
-	ctx.JSON(200,gin.H{"customers:":"list of customers"})
-}
 
 
 //func Server(){
@@ -34,6 +28,6 @@ func (s *MyServer)GetCustomers(ctx *gin.Context){
 //	router.Run(":8080")
 //}
 
-//func NewMyServer()MyServer{
-//	return MyServer{}
-//}
+func NewMyServer()MyServer{
+	return MyServer{}
+}
